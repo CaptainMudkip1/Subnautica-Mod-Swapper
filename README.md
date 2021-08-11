@@ -1,6 +1,6 @@
 # Subnautica Mod Swapper (SMB)
 
-SMB looks in the default Subnautica installation directory and can swap between two installations of Subnautica.
+SMB looks in the default Subnautica installation directory and can swap between two installations of Subnautica. It looks for the folders ```C:\Program Files (x86)\Steam\steamapps\common\Subnautica\``` and ```C:\Program Files (x86)\Steam\steamapps\common\Subnautica_mod``` and swaps them.
 
 ## Uses
 
