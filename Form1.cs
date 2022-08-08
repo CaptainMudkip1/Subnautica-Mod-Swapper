@@ -2,6 +2,7 @@
 
 using System.Windows.Forms;
 using System.IO;
+using System.Drawing;
 
 namespace Subnautica_Mod_Swapper
 {
@@ -10,6 +11,10 @@ namespace Subnautica_Mod_Swapper
         public Form1()
         {
             InitializeComponent();
+            using (var stream = File.OpenRead("smb.ico"))
+            {
+                this.Icon = new Icon(stream);
+            }
             string steamdir = SubTools.SubTools.getFolderText();
             label1.Text = SubTools.SubTools.getFolderState(steamdir);
         }
