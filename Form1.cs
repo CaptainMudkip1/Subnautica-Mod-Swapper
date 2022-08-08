@@ -18,14 +18,41 @@ namespace Subnautica_Mod_Swapper
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (steamdir == @"//Replace this line with the path to your steamapps folder.") {
-                MessageBox.Show(@"Please find the file named ""path.txt"" in the same folder as this, and add the path to your steamapps folder.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (steamdir == @"//Replace this line with the path to your Subnautica folder.") {
+                MessageBox.Show(@"Please find the file named ""path.txt"" in the same folder as this, and add the path to your Subnautica folder.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            Directory.Move(steamdir + "Subnautica", steamdir + "sub");
-            Directory.Move(steamdir + "Subnautica_mod", steamdir + "Subnautica");
-            Directory.Move(steamdir + "sub", steamdir + "Subnautica_mod");
-            MessageBox.Show("Done.", "Message");
+            
+            SubTools.SubTools.checkDataFolder(steamdir);
+            
+            if (SubTools.SubTools.getFolderStateBool(steamdir))
+            {
+                Directory.Move(steamdir + "/BepInEx", steamdir + "/SMS_DATA/BepInEx");
+                Directory.Move(steamdir + "/QMods", steamdir + "/SMS_DATA/QMods");
+                File.Move(steamdir + "/doorstop_config.ini", steamdir + "/SMS_DATA/doorstop_config.ini");
+                File.Move(steamdir + "/winhttp.dll", steamdir + "/SMS_DATA/winhttp.dll");
+            }
+            else
+            {
+                Directory.Move(steamdir + "/SMS_DATA/BepInEx", steamdir + "/BepInEx");
+                Directory.Move(steamdir + "/SMS_DATA/QMods", steamdir + "/QMods");
+                File.Move(steamdir + "/SMS_DATA/doorstop_config.ini", steamdir + "/doorstop_config.ini");
+                File.Move(steamdir + "/SMS_DATA/winhttp.dll", steamdir + "/winhttp.dll");
+            }
+
+            if (Directory.Exists(steamdir + "/SMS_DATA/SNAppData"))
+                {
+                    Directory.Move(steamdir + "/SNAppData", steamdir + "/SMS_DATA/SNAppData-temp");
+                    Directory.Move(steamdir + "/SMS_DATA/SNAppData", steamdir + "/SNAppData");
+                    Directory.Move(steamdir + "/SMS_DATA/SNAppData-temp", steamdir + "/SMS_DATA/SNAppData");
+                }
+                else
+                {
+                    Directory.Move(steamdir + "/SNAppData", steamdir + "/SMS_DATA/SNAppData");
+                    Directory.CreateDirectory(steamdir + "/SNAppData");
+                    Directory.CreateDirectory(steamdir + "/SNAppData/SavedGames");
+                }
+            MessageBox.Show("Operation completed!");
             this.Close();
         }
         private void no_button_Click(object sender, EventArgs e)
