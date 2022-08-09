@@ -1,6 +1,6 @@
 # Subnautica Mod Swapper (SMS)
 
-SMS looks in the default Subnautica installation directory and can swap between two installations of Subnautica.
+A simple yet useful program made by me :)
 
 ## Uses
 
